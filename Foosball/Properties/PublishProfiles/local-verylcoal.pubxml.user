@@ -16,10 +16,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/08/2016 11:33:43</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>09/08/2016 13:31:43</publishTime>
+      <publishTime>09/08/2016 13:45:12</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>09/08/2016 13:31:43</publishTime>
+      <publishTime>09/08/2016 13:45:12</publishTime>
     </File>
     <File Include="bin/Data.txt">
       <publishTime>09/08/2016 13:14:41</publishTime>
@@ -34,7 +34,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/08/2016 11:33:12</publishTime>
     </File>
     <File Include="bin/Foosball.dll">
-      <publishTime>09/08/2016 13:22:16</publishTime>
+      <publishTime>09/08/2016 13:45:05</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>09/08/2016 11:33:35</publishTime>
@@ -148,7 +148,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/08/2016 13:07:57</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>09/08/2016 13:31:39</publishTime>
+      <publishTime>09/08/2016 13:45:07</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>09/08/2016 11:33:10</publishTime>
