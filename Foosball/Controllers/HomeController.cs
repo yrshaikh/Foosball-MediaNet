@@ -61,10 +61,12 @@ namespace Foosball.Controllers
             foreach (string key in hashtable.Keys)
             {
                 UserRank temp = (UserRank) hashtable[key];
-                temp.Username = key;
+                temp.Username = key;                
                 userRanks.Add(temp);
             }
-            userRanks = userRanks.OrderByDescending(x => x.Won).ToList();
+            userRanks = userRanks
+                        .OrderBy(x => x.Lost)
+                        .OrderByDescending(x => x.QualityScore).ToList();
             return userRanks;
         }
 
@@ -111,5 +113,15 @@ namespace Foosball.Controllers
         public int Won { get; set; }
         public int Lost { get; set; }
         public List<string> Trend { get; set; }
+
+        public decimal QualityScore
+        {
+            get
+            {
+                if (Won == 0)
+                    return 0;
+                return (decimal)Played/Won;
+            }
+        }
     }
 }
