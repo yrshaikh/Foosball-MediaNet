@@ -1,0 +1,25 @@
+﻿[{
+	"Team1": {
+		Players: ["ian.fo", "yasser.s"]
+	},
+	"Team2": {
+		Players: ["neel.s", "ali.ri"]
+	},
+	"Score": "14-10"
+},{
+	"Team1": {
+		Players: ["ian.fo", "yasser.s"]
+	},
+	"Team2": {
+		Players: ["neel.s", "vipresh.j"]
+	},
+	"Score": "10-5"
+},{
+	"Team1": {
+		Players: ["parth.j", "sahil.mu"]
+	},
+	"Team2": {
+		Players: ["ian.fo", "yasser.s"]
+	},
+	"Score": "0-10"
+}]

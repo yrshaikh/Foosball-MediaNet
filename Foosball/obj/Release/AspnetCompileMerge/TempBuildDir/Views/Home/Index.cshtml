@@ -1,0 +1,32 @@
+﻿@using Foosball.Controllers
+@model List<UserRank>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Played</th>
+            <th>Won</th>
+            <th>Lost</th>
+            <th>Current Form</th>
+        </tr>
+    </thead>
+    @foreach (UserRank user in Model)
+    {
+        <tr>
+            <td>@user.Username</td>
+            <td>@user.Played</td>
+            <td>@user.Won</td>
+            <td>@user.Lost</td>
+            <td>
+                @foreach (string trend in user.Trend)
+                {
+                    <span>@trend </span>
+                }
+            </td>
+        </tr>
+    }
+</table>
