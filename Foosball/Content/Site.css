@@ -1,7 +1,10 @@
-﻿body {
-    padding-top: 50px;
+﻿h1,h2,h3,h4,body {
+    font-family: 'Work Sans', 'Montserrat', Segoe UI, sans-serif;
+}
+
+body {
+    padding-top: 25px;
     padding-bottom: 20px;
-    font-family: 'Work Sans', 'Montserrat', sans-serif;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -9,7 +12,7 @@
     padding-left: 15px;
     padding-right: 15px;
     margin-top: 50px;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -37,4 +40,24 @@ textarea {
         padding: 10px 15px;
     }
 }
-
+.porel { position: relative;}
+.poabs { position: absolute;}
+table tbody>tr>td { vertical-align: middle !important;}
+table .frow { display: inline-block;}
+table .frow img { border: 1px solid #ccc;}
+span.frow.title{ position: absolute;left: 80px;top: 10px;width: 100px;}
+table .frow.title .user { display: block;}
+table .frow.title .trend .L{ color: #E85B50;}
+table .frow.title .trend .W{ color: #32BE6E;}
+table .frow.title .trend { color: #ddd;}
+table .medal {top: 11px;left: 2px;}
+table .cup {top: 13px;left: 185px;}
+.navbar-inverse {
+    background-color: #1D8CC6;
+    border-color: #1A84BC;
+    border-bottom: 2px;
+}
+a{ color: #1D8CC6;}
+html,body { background: #DBE1E4;}
+.body-content { background: #fff;padding: 10px 20px;border-radius: 2px;}
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a { color: #fff;}

@@ -1,0 +1,19 @@
+﻿@using Foosball.Controllers
+@model UserProfile
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Name</h2>
+
+<div>
+    @foreach (string trend in Model.UserRank.Trend)
+    {
+        <span class="@trend">@trend </span>
+    }
+
+    Played: @Model.UserRank.Played
+    Won: @Model.UserRank.Won
+    Lost: @Model.UserRank.Lost
+    Goal Difference: @Model.UserRank.GoalDifference
+</div>

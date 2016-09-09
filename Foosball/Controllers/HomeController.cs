@@ -13,11 +13,33 @@ namespace Foosball.Controllers
     {
         public ActionResult Index()
         {
-            List<Match> allMatches = TransformStringToObject(GetDataInJsonString());
-            List<UserRank> userRanks = GetRankings(allMatches);
+            List<UserRank> userRanks = GetUserRanks();
             return View(userRanks);
         }
 
+        public ActionResult User(string q)
+        {
+            UserProfile user = new UserProfile
+            {
+                Name = q,
+                UserRank = GetUserRank(q)
+            };
+            return View(user);
+        }
+
+        private List<UserRank> GetUserRanks()
+        {
+            List<Match> allMatches = TransformStringToObject(GetDataInJsonString());
+            List<UserRank> userRanks = GetRankings(allMatches);
+            return userRanks;
+        } 
+
+        private UserRank GetUserRank(string username)
+        {
+            List<UserRank> userRanks = GetUserRanks();
+            return userRanks.FirstOrDefault(x => x.Username.ToLower().Equals(username.ToLower()));
+        } 
+        
         private string GetDataInJsonString()
         {
             string text;
@@ -53,8 +75,15 @@ namespace Foosball.Controllers
                 }
 
                 List<string> score = match.Score.Split('-').ToList();
-                UpdateHashWithResults(hashtable, match.Team1.Players, int.Parse(score[0]) > int.Parse(score[1]));
-                UpdateHashWithResults(hashtable, match.Team2.Players, int.Parse(score[0]) < int.Parse(score[1]));
+
+                bool hasTeam1Won = int.Parse(score[0]) > int.Parse(score[1]);
+                int team1GoalDifference = int.Parse(score[0]) - int.Parse(score[1]);
+
+                bool hasTeam2Won = int.Parse(score[1]) > int.Parse(score[0]);
+                int team2GoalDifference = int.Parse(score[1]) - int.Parse(score[0]);
+
+                UpdateHashWithResults(hashtable, match.Team1.Players, hasTeam1Won, team1GoalDifference);
+                UpdateHashWithResults(hashtable, match.Team2.Players, hasTeam2Won, team2GoalDifference);
             }
 
             List<UserRank> userRanks = new List<UserRank>();
@@ -65,12 +94,13 @@ namespace Foosball.Controllers
                 userRanks.Add(temp);
             }
             userRanks = userRanks
-                        .OrderBy(x => x.Lost)
-                        .OrderByDescending(x => x.QualityScore).ToList();
+                        .OrderByDescending(x => x.QualityScore)
+                        //.OrderBy(x => x.GoalDifference)
+                        .ToList();
             return userRanks;
         }
 
-        private Hashtable UpdateHashWithResults(Hashtable hashtable, List<string> players, bool won)
+        private Hashtable UpdateHashWithResults(Hashtable hashtable, List<string> players, bool won, int goalDifference)
         {
             foreach (string player in players)
             {
@@ -88,6 +118,7 @@ namespace Foosball.Controllers
                     userRank.Lost = userRank.Lost + 1;
                     userRank.Trend.Add("L");
                 }
+                userRank.GoalDifference = userRank.GoalDifference + goalDifference;
                 hashtable[player] = userRank;
             }
             return hashtable;
@@ -113,15 +144,21 @@ namespace Foosball.Controllers
         public int Won { get; set; }
         public int Lost { get; set; }
         public List<string> Trend { get; set; }
+        public int GoalDifference { get; set; }
 
         public decimal QualityScore
         {
             get
             {
-                if (Won == 0)
-                    return 0;
-                return (decimal)Played/Won;
+                var scrore = ((decimal)Won / Played) + ((decimal)GoalDifference / 1000);
+                return scrore;
             }
         }
+    }
+
+    public class UserProfile
+    {
+        public string Name { get; set; }
+        public UserRank UserRank { get; set; }
     }
 }

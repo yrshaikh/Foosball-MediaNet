@@ -16,13 +16,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/08/2016 11:33:43</publishTime>
     </File>
     <File Include="bin/App_global.asax.compiled">
-      <publishTime>09/08/2016 13:45:12</publishTime>
+      <publishTime>09/08/2016 17:02:30</publishTime>
     </File>
     <File Include="bin/App_global.asax.dll">
-      <publishTime>09/08/2016 13:45:12</publishTime>
+      <publishTime>09/08/2016 17:02:29</publishTime>
     </File>
     <File Include="bin/Data.txt">
-      <publishTime>09/08/2016 13:14:41</publishTime>
+      <publishTime>09/08/2016 16:58:52</publishTime>
     </File>
     <File Include="bin/Elmah.dll">
       <publishTime>09/08/2016 13:07:54</publishTime>
@@ -34,7 +34,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/08/2016 11:33:12</publishTime>
     </File>
     <File Include="bin/Foosball.dll">
-      <publishTime>09/08/2016 13:45:05</publishTime>
+      <publishTime>09/08/2016 17:02:24</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>09/08/2016 11:33:35</publishTime>
@@ -127,7 +127,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/08/2016 13:30:53</publishTime>
     </File>
     <File Include="Data.txt">
-      <publishTime>09/08/2016 13:14:41</publishTime>
+      <publishTime>09/08/2016 16:58:52</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>09/08/2016 11:32:54</publishTime>
@@ -148,7 +148,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/08/2016 13:07:57</publishTime>
     </File>
     <File Include="PrecompiledApp.config">
-      <publishTime>09/08/2016 13:45:07</publishTime>
+      <publishTime>09/08/2016 17:02:25</publishTime>
     </File>
     <File Include="Scripts/bootstrap.js">
       <publishTime>09/08/2016 11:33:10</publishTime>

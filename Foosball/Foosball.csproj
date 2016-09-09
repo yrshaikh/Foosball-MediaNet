@@ -187,6 +187,10 @@
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\bronze-medal.png" />
+    <Content Include="Content\images\cup.png" />
+    <Content Include="Content\images\gold-medal.png" />
+    <Content Include="Content\images\silver-medal.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Data.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -228,6 +232,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </Content>
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <None Include="Views\Home\User.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
