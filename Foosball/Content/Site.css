@@ -50,8 +50,8 @@ table .frow.title .user { display: block;}
 table .frow.title .trend .L{ color: #E85B50;}
 table .frow.title .trend .W{ color: #32BE6E;}
 table .frow.title .trend { color: #ddd;}
-table .medal {top: 11px;left: 2px;}
-table .cup {top: 13px;left: 185px;}
+table .medal {top: 7px;left: -11px;}
+table .cup {top: 13px;left: 180px;display: none;}
 .navbar-inverse {
     background-color: #1D8CC6;
     border-color: #1A84BC;
