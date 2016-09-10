@@ -2,31 +2,89 @@
 @model List<UserRank>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int rank = 0;
 }
 
 <table class="table table-striped">
     <thead>
         <tr>
-            <th>Username</th>
-            <th>Played</th>
-            <th>Won</th>
-            <th>Lost</th>
-            <th>Current Form</th>
+            <th class="text-center">#</th>
+            <th class="text-left">Username</th>
+            <th class="text-center">Played</th>
+            <th class="text-center">Won</th>
+            <th class="text-center">Lost</th>
+            <th class="text-center">Diff</th>
         </tr>
     </thead>
     @foreach (UserRank user in Model)
     {
+        rank++;
         <tr>
-            <td>@user.Username</td>
-            <td>@user.Played</td>
-            <td>@user.Won</td>
-            <td>@user.Lost</td>
-            <td>
-                @foreach (string trend in user.Trend)
-                {
-                    <span>@trend </span>
-                }
+            <td class="text-center">@rank</td>
+            <td class="porel">
+                <span class="poabs medal">
+                    @if (rank == 1)
+                    {
+                        <img src="~/Content/images/gold-medal.png" />
+                    }
+                    else if (rank == 2)
+                    {
+                        <img src="~/Content/images/silver-medal.png" />
+                    }
+                    else if (rank == 3)
+                    {
+                        <img src="~/Content/images/bronze-medal.png" />
+                    }
+                </span>
+                <span class="poabs cup">
+                    @if (rank == 1)
+                    {
+                        <img src="~/Content/images/cup.png" />
+                    }
+                </span>
+                <span class="frow">
+                    <img class="img-circle" src="@string.Format("https://tp.internal.directi.com/pics/upload_pic/thumbnail_{0}.jpg", @user.Username)" />
+                </span>
+                <span class="frow title">
+                    <span class="user">
+                        <a href="/user?q=@user.Username">
+                            @if (user.Username == "ian.fo")
+                            {
+                                <span>Sir ian.fo</span>
+                            }
+                            else
+                            {
+                                <span>@user.Username</span>
+                            }
+                        </a>
+                    </span>
+                    <span class="trend">
+                        @{
+                            int count = user.Trend.Count;
+                            if (count < 5)
+                            {
+                                for (int i = 0; i < 5 - count; i++)
+                                {
+                                    user.Trend.Add("-");
+                                }
+                            }
+                            else
+                            {
+                                user.Trend = user.Trend.GetRange(count - 5, 5);
+                            }
+                        }
+                        @foreach (string trend in user.Trend)
+                        {
+                            <span class="@trend">@trend </span>
+                        }
+                    </span>
+                </span>
             </td>
+
+            <td class="text-center">@user.Played</td>
+            <td class="text-center">@user.Won</td>
+            <td class="text-center">@user.Lost</td>
+            <td class="text-center">@user.GoalDifference</td>
         </tr>
     }
 </table>

@@ -46,7 +46,18 @@
                     <img class="img-circle" src="@string.Format("https://tp.internal.directi.com/pics/upload_pic/thumbnail_{0}.jpg", @user.Username)" />
                 </span>
                 <span class="frow title">
-                    <span class="user"><a href="/user?q=@user.Username">@user.Username</a></span>
+                    <span class="user">
+                        <a href="/user?q=@user.Username">
+                            @if (user.Username == "ian.fo")
+                            {
+                                <span>Sir ian.fo</span>
+                            }
+                            else
+                            {
+                                <span>@user.Username</span>
+                            }
+                        </a>
+                    </span>
                     <span class="trend">
                         @{
                             int count = user.Trend.Count;
@@ -59,7 +70,7 @@
                             }
                             else
                             {
-                                user.Trend = user.Trend.GetRange(count - 6, 5);
+                                user.Trend = user.Trend.GetRange(count - 5, 5);
                             }
                         }
                         @foreach (string trend in user.Trend)
