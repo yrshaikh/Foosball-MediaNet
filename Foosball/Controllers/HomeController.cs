@@ -19,27 +19,129 @@ namespace Foosball.Controllers
 
         public ActionResult User(string q)
         {
+            int rank;
+            int bestWinStreak;
+            int worstLosingtreak;
             UserProfile user = new UserProfile
             {
                 Name = q,
-                UserRank = GetUserRank(q)
+                UserRank = GetUserRank(q, out rank),
+                BestMatch = GetBestWonMatch(q, out bestWinStreak),
+                WorstMatch = GetWorstLostMatch(q, out worstLosingtreak),
+                Rank = rank,
+                BestWinStreak = bestWinStreak,
+                WortsLosingStreak = worstLosingtreak
             };
             return View(user);
         }
 
         private List<UserRank> GetUserRanks()
         {
-            List<Match> allMatches = TransformStringToObject(GetDataInJsonString());
+            List<Match> allMatches = GetAllMatches();
             List<UserRank> userRanks = GetRankings(allMatches);
             return userRanks;
-        } 
+        }
 
-        private UserRank GetUserRank(string username)
+        private List<Match> GetAllMatches()
+        {
+            return TransformStringToObject(GetDataInJsonString());
+        }
+
+        private List<Match> GetAllMatches(string username)
+        {
+            return
+                GetAllMatches()
+                    .Where(x => x.Team1.Players.Contains(username) || x.Team2.Players.Contains(username))
+                    .ToList();
+        }
+
+        private List<Match> GetAllWonMatches(string username, out Match bestWin, out int bestWinStreak)
+        {
+            List<Match> matches = GetAllMatches(username);
+            List<Match> wonMatches = new List<Match>();
+            int maxGoalDifference = 0;
+            bestWinStreak = 0;
+            int currentWinStreak = 0;
+            bestWin = null;
+            foreach (Match match in matches)
+            {
+                int factor = 1;
+                if (match.Team2.Players.Contains(username))
+                    factor = factor * -1;
+
+                List<string> score = match.Score.Split('-').ToList();
+                int goalDifference = int.Parse(score[0]) - int.Parse(score[1]);
+                goalDifference = goalDifference * factor;
+
+                if (goalDifference > -1)
+                {
+                    currentWinStreak++;
+
+                    if (currentWinStreak > bestWinStreak)
+                        bestWinStreak = currentWinStreak;
+
+                    wonMatches.Add(match);
+                    if (goalDifference > maxGoalDifference)
+                    {
+                        maxGoalDifference = goalDifference;
+                        bestWin = match;
+                    }
+                }
+                else
+                {
+                    currentWinStreak = 0;
+                }
+            }
+            return wonMatches;
+        }
+        private List<Match> GetAllDefeatedMatches(string username, out Match worstDefeat, out int worstLosingStreak)
+        {
+            List<Match> matches = GetAllMatches(username);
+            List<Match> defeatedMatches = new List<Match>();
+            int maxGoalDifference = 0;
+            worstLosingStreak = 0;
+            int currentlosingStreak = 0;
+            worstDefeat = null;
+            foreach (Match match in matches)
+            {
+                int factor = 1;
+                if (match.Team1.Players.Contains(username))
+                    factor = factor * -1;
+
+                List<string> score = match.Score.Split('-').ToList();
+                int goalDifference = int.Parse(score[0]) - int.Parse(score[1]);
+                goalDifference = goalDifference * factor;
+
+                if (goalDifference > -1)
+                {
+                    currentlosingStreak++;
+
+                    if (currentlosingStreak > worstLosingStreak)
+                        worstLosingStreak = currentlosingStreak;
+
+                    defeatedMatches.Add(match);
+                    if (goalDifference > maxGoalDifference)
+                    {
+                        maxGoalDifference = goalDifference;
+                        worstDefeat = match;
+                    }
+                }
+                else
+                {
+                    currentlosingStreak = 0;
+                }
+            }
+            return defeatedMatches;
+        }
+
+        private UserRank GetUserRank(string username, out int rank)
         {
             List<UserRank> userRanks = GetUserRanks();
-            return userRanks.FirstOrDefault(x => x.Username.ToLower().Equals(username.ToLower()));
-        } 
-        
+            UserRank user = userRanks.FirstOrDefault(x => x.Username.ToLower().Equals(username.ToLower()));
+            rank = userRanks.IndexOf(user) + 1;
+            return user;
+        }
+
         private string GetDataInJsonString()
         {
             string text;
@@ -66,7 +168,7 @@ namespace Foosball.Controllers
                 List<string> matchPlayers = match.Team1.Players.Concat(match.Team2.Players).ToList();
                 foreach (string player in matchPlayers)
                 {
-                    if (!hashtable.ContainsKey(player)) 
+                    if (!hashtable.ContainsKey(player))
                         hashtable.Add(player, new UserRank());
 
                     UserRank userRank = (UserRank)hashtable[player];
@@ -89,13 +191,13 @@ namespace Foosball.Controllers
             List<UserRank> userRanks = new List<UserRank>();
             foreach (string key in hashtable.Keys)
             {
-                UserRank temp = (UserRank) hashtable[key];
-                temp.Username = key;                
+                UserRank temp = (UserRank)hashtable[key];
+                temp.Username = key;
                 userRanks.Add(temp);
             }
             userRanks = userRanks
                         .OrderByDescending(x => x.QualityScore)
-                        //.OrderBy(x => x.GoalDifference)
+                //.OrderBy(x => x.GoalDifference)
                         .ToList();
             return userRanks;
         }
@@ -122,6 +224,20 @@ namespace Foosball.Controllers
                 hashtable[player] = userRank;
             }
             return hashtable;
+        }
+
+        private Match GetBestWonMatch(string username, out int winStreak)
+        {
+            Match best;
+            GetAllWonMatches(username, out best, out winStreak);
+            return best;
+        }
+
+        private Match GetWorstLostMatch(string username, out int losingStreak)
+        {
+            Match worst;
+            GetAllDefeatedMatches(username, out worst, out losingStreak);
+            return worst;
         }
     }
 
@@ -160,5 +276,10 @@ namespace Foosball.Controllers
     {
         public string Name { get; set; }
         public UserRank UserRank { get; set; }
+        public Match BestMatch { get; set; }
+        public Match WorstMatch { get; set; }
+        public int Rank { get; set; }
+        public int BestWinStreak { get; set; }
+        public int WortsLosingStreak { get; set; }
     }
 }

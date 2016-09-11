@@ -43,14 +43,14 @@
                     }
                 </span>
                 <span class="frow">
-                    <img class="img-circle" src="@string.Format("https://tp.internal.directi.com/pics/upload_pic/thumbnail_{0}.jpg", @user.Username)" />
+                    <img class="img-circle" src="@string.Format("/content/images/players/{0}.png", @user.Username)" onerror="this.src='/content/images/players/fallback.png'" />
                 </span>
                 <span class="frow title">
                     <span class="user">
                         <a href="/user?q=@user.Username">
                             @if (user.Username == "ian.fo")
                             {
-                                <span>Sir ian.fo</span>
+                                <span>ser ian.fo</span>
                             }
                             else
                             {

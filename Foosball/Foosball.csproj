@@ -190,6 +190,11 @@
     <Content Include="Content\images\bronze-medal.png" />
     <Content Include="Content\images\cup.png" />
     <Content Include="Content\images\gold-medal.png" />
+    <Content Include="Content\images\players\ali.ri.png" />
+    <Content Include="Content\images\players\fallback.png" />
+    <Content Include="Content\images\players\parth.j.png" />
+    <Content Include="Content\images\players\vipresh.j.png" />
+    <Content Include="Content\images\players\yasser.s.png" />
     <Content Include="Content\images\silver-medal.png" />
     <Content Include="Content\Site.css" />
     <Content Include="Data.txt">
