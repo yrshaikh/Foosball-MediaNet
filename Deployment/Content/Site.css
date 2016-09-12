@@ -1,5 +1,5 @@
-﻿h1,h2,h3,h4,body {
-    font-family: 'Work Sans', 'Montserrat', Segoe UI, sans-serif;
+﻿h1,h2,h3,h4,h5,body {
+    font-family: 'Montserrat', 'Work Sans', Segoe UI, sans-serif;
 }
 
 body {
@@ -12,7 +12,7 @@ body {
     padding-left: 15px;
     padding-right: 15px;
     margin-top: 50px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -44,20 +44,36 @@ textarea {
 .poabs { position: absolute;}
 table tbody>tr>td { vertical-align: middle !important;}
 table .frow { display: inline-block;}
-table .frow img { border: 1px solid #ccc;}
+table .frow img { border: 1px solid #ccc;height: 50px;width: 50px;background:#ccc;}
 span.frow.title{ position: absolute;left: 80px;top: 10px;width: 100px;}
 table .frow.title .user { display: block;}
-table .frow.title .trend .L{ color: #E85B50;}
-table .frow.title .trend .W{ color: #32BE6E;}
-table .frow.title .trend { color: #ddd;}
+.trend .L{ color: #E85B50;}
+.trend .W{ color: #32BE6E;}
+.trend { color: #999;}
 table .medal {top: 7px;left: -11px;}
 table .cup {top: 13px;left: 180px;display: none;}
 .navbar-inverse {
-    background-color: #1D8CC6;
-    border-color: #1A84BC;
-    border-bottom: 2px;
+    background-color: #796e66;
+    border-color: #796e66;
 }
 a{ color: #1D8CC6;}
-html,body { background: #DBE1E4;}
-.body-content { background: #fff;padding: 10px 20px;border-radius: 2px;}
-.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a { color: #fff;}
+html,body { background: #e4e2e3;}
+.body-content { background: #fff;padding: 10px 20px;radius-border: 2px;}
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a { color: #fff;font-size: 12px;}
+
+.profile {}
+.profile .head {}
+.profile .head .name, .profile .head .pic { width: 100%;display: block;}
+.profile .head .name { font-size: 14px;font-weight: bold;}
+.profile .head .pic { text-align:center;padding-bottom: 10px;}
+.profile .head .pic img { height: 50px;width: 50px;}
+.profile .head .stat { display: inline-block;width: 49%;}
+.profile .head .stat .item { margin-left: 10px;color: #999;}
+.profile .head .stat .item .number { color: #000;}
+
+.profile .content1 { border-top: 1px solid rgba(0, 0, 0, 0.07);margin-top: 5px;padding-top: 15px;}
+.profile .content1 .alert { margin-right: 10px;}
+
+.box {border-radius: .25rem;border: 1px solid rgba(0,0,0,.125);padding: 15px;width: 24%;min-height: 150px;float: left;margin-right: 10px;text-align: center;}
+.box .score, .box .fixture {text-align: center;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
+.box .msg { margin-top: 25px;}

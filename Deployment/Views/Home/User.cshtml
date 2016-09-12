@@ -7,7 +7,7 @@
 <div class="profile">
     <div class="head">
         <div class="pic">
-            <img class="img-circle img-bigger" src="@string.Format("/content/images/players/{0}.png", @Model.UserRank.Username)" onerror="this.src = '/content/images/players/fallback.png'" />
+            <img class="img-circle" src="@string.Format("/content/images/players/{0}.png", @Model.UserRank.Username)" onerror="this.src = '/content/images/players/fallback.png'" />
             <span class="name">#@Model.Rank @Model.Name</span>
         </div>
         <div class="stat text-left">
@@ -71,44 +71,5 @@
             <h5 class="text-muted">Worst Losing Streak</h5>
             <h2 class="score">@Model.WortsLosingStreak</h2>
         </div>
-    </div>
-    <div class="results">
-        <table class="table table-striped">
-            <thead>
-            <tr>
-                <th class="text-left">Date</th>
-                <th class="text-left">Match</th>
-                <th class="text-center">Score</th>
-                <th class="text-center">Result</th>
-            </tr>
-            </thead>
-            @foreach (Match match in Model.RecentMatches)
-            {
-                bool isTeam1Player = match.Team1.Players.Any(x => x.Contains(Model.Name));
-                bool isTeam2Player = match.Team2.Players.Any(x => x.Contains(Model.Name));
-
-                List<string> score = match.Score.Split('-').ToList();
-                bool hasTeam1Won = int.Parse(score[0]) > int.Parse(score[1]);
-                bool hasTeam2Won = int.Parse(score[0]) < int.Parse(score[1]);
-
-                bool matchWon = (isTeam1Player && hasTeam1Won) || (isTeam2Player && hasTeam2Won);
-
-                <tr>
-                    <td>@match.Date.ToString("yy-MMM-dd ddd")</td>
-                    <td>@match.Team1.Players[0] & @match.Team1.Players[1] vs @match.Team2.Players[0] & @match.Team2.Players[1]</td>
-                    <td class="text-center">@match.Score</td>
-                    <td class="text-center">
-                        @if (matchWon)
-                        {
-                            <span>Won</span>
-                        }
-                        else
-                        {
-                            <span>Lost</span>
-                        }
-                    </td>
-                </tr>
-            }
-        </table>
     </div>
 </div>

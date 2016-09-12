@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -30,7 +31,8 @@ namespace Foosball.Controllers
                 WorstMatch = GetWorstLostMatch(q, out worstLosingtreak),
                 Rank = rank,
                 BestWinStreak = bestWinStreak,
-                WortsLosingStreak = worstLosingtreak
+                WortsLosingStreak = worstLosingtreak,
+                RecentMatches = GetAllMatches(q).OrderByDescending( x => x.Date).ToList()
             };
             return View(user);
         }
@@ -196,8 +198,9 @@ namespace Foosball.Controllers
                 userRanks.Add(temp);
             }
             userRanks = userRanks
-                        .OrderByDescending(x => x.QualityScore)
-                //.OrderBy(x => x.GoalDifference)
+                        .OrderByDescending(x => x.Rating)
+                        .ThenByDescending(x => x.GoalDifference)
+                        //.OrderBy(x => x.GoalDifference)
                         .ToList();
             return userRanks;
         }
@@ -210,15 +213,34 @@ namespace Foosball.Controllers
                 if (userRank.Trend == null)
                     userRank.Trend = new List<string>();
 
+                if (userRank.Rating == 0)
+                    userRank.Rating = 100;
+
                 if (won)
                 {
                     userRank.Won = userRank.Won + 1;
                     userRank.Trend.Add("W");
+                    userRank.Rating = userRank.Rating + 3;
+
+                    if (goalDifference >= 3)
+                        userRank.Rating = userRank.Rating + 1;
+                    if (goalDifference >= 6)
+                        userRank.Rating = userRank.Rating + 1;
+                    if (goalDifference >= 9)
+                        userRank.Rating = userRank.Rating + 1;
                 }
                 else
                 {
                     userRank.Lost = userRank.Lost + 1;
                     userRank.Trend.Add("L");
+                    userRank.Rating = userRank.Rating - 3;
+
+                    if (goalDifference >= 3)
+                        userRank.Rating = userRank.Rating - 1;
+                    if (goalDifference >= 6)
+                        userRank.Rating = userRank.Rating - 1;
+                    if (goalDifference >= 9)
+                        userRank.Rating = userRank.Rating - 1;
                 }
                 userRank.GoalDifference = userRank.GoalDifference + goalDifference;
                 hashtable[player] = userRank;
@@ -246,6 +268,8 @@ namespace Foosball.Controllers
         public Team Team1 { get; set; }
         public Team Team2 { get; set; }
         public string Score { get; set; }
+
+        public DateTime Date { get; set; }
     }
 
     public class Team
@@ -261,7 +285,7 @@ namespace Foosball.Controllers
         public int Lost { get; set; }
         public List<string> Trend { get; set; }
         public int GoalDifference { get; set; }
-
+        
         public decimal QualityScore
         {
             get
@@ -270,6 +294,8 @@ namespace Foosball.Controllers
                 return scrore;
             }
         }
+
+        public int Rating { get; set; }
     }
 
     public class UserProfile
@@ -281,5 +307,7 @@ namespace Foosball.Controllers
         public int Rank { get; set; }
         public int BestWinStreak { get; set; }
         public int WortsLosingStreak { get; set; }
+
+        public List<Match> RecentMatches { get; set; }
     }
 }
