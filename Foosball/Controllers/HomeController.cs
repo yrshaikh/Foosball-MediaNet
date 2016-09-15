@@ -32,9 +32,17 @@ namespace Foosball.Controllers
                 Rank = rank,
                 BestWinStreak = bestWinStreak,
                 WortsLosingStreak = worstLosingtreak,
-                RecentMatches = GetAllMatches(q).OrderByDescending( x => x.Date).ToList()
+                RecentMatches = GetAllMatches(q) // OrderByDescending( x => x.Date).ToList()
             };
+            user.RecentMatches.Reverse();
             return View(user);
+        }
+
+        public ActionResult RecentMatches()
+        {
+            List<Match> matches = GetAllMatches();
+            matches.Reverse();
+            return View(matches);
         }
 
         private List<UserRank> GetUserRanks()
@@ -233,7 +241,7 @@ namespace Foosball.Controllers
                 {
                     userRank.Lost = userRank.Lost + 1;
                     userRank.Trend.Add("L");
-                    userRank.Rating = userRank.Rating - 3;
+                    userRank.Rating = userRank.Rating - 1;
 
                     if (goalDifference >= 3)
                         userRank.Rating = userRank.Rating - 1;

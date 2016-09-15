@@ -16,7 +16,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2016 12:04:23</publishTime>
     </File>
     <File Include="bin/Data.txt">
-      <publishTime>09/11/2016 12:19:06</publishTime>
+      <publishTime>09/15/2016 18:01:28</publishTime>
     </File>
     <File Include="bin/Elmah.dll">
       <publishTime>09/10/2016 12:04:23</publishTime>
@@ -28,7 +28,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2016 12:04:23</publishTime>
     </File>
     <File Include="bin/Foosball.dll">
-      <publishTime>09/11/2016 19:46:47</publishTime>
+      <publishTime>09/15/2016 18:07:36</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>09/10/2016 12:04:24</publishTime>
@@ -145,10 +145,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2016 12:04:23</publishTime>
     </File>
     <File Include="Content/Site.css">
-      <publishTime>09/11/2016 19:26:52</publishTime>
+      <publishTime>09/12/2016 15:54:35</publishTime>
     </File>
     <File Include="Data.txt">
-      <publishTime>09/11/2016 12:19:06</publishTime>
+      <publishTime>09/15/2016 18:01:28</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>09/10/2016 12:04:23</publishTime>
@@ -217,16 +217,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2016 12:04:23</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>09/11/2016 12:32:20</publishTime>
+      <publishTime>09/12/2016 15:28:33</publishTime>
     </File>
     <File Include="Views/Home/User.cshtml">
-      <publishTime>09/11/2016 18:57:28</publishTime>
+      <publishTime>09/12/2016 15:53:43</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>09/10/2016 12:04:23</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>09/11/2016 18:58:47</publishTime>
+      <publishTime>09/12/2016 17:47:46</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>09/10/2016 12:04:23</publishTime>
