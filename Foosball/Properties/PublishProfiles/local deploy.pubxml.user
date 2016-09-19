@@ -16,7 +16,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2016 12:04:23</publishTime>
     </File>
     <File Include="bin/Data.txt">
-      <publishTime>09/15/2016 18:01:28</publishTime>
+      <publishTime>09/15/2016 20:44:44</publishTime>
     </File>
     <File Include="bin/Elmah.dll">
       <publishTime>09/10/2016 12:04:23</publishTime>
@@ -28,7 +28,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/10/2016 12:04:23</publishTime>
     </File>
     <File Include="bin/Foosball.dll">
-      <publishTime>09/15/2016 18:07:36</publishTime>
+      <publishTime>09/16/2016 12:24:05</publishTime>
     </File>
     <File Include="bin/Microsoft.AspNet.Identity.Core.dll">
       <publishTime>09/10/2016 12:04:24</publishTime>
@@ -148,7 +148,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>09/12/2016 15:54:35</publishTime>
     </File>
     <File Include="Data.txt">
-      <publishTime>09/15/2016 18:01:28</publishTime>
+      <publishTime>09/15/2016 20:44:44</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>09/10/2016 12:04:23</publishTime>
@@ -219,14 +219,17 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Views/Home/Index.cshtml">
       <publishTime>09/12/2016 15:28:33</publishTime>
     </File>
+    <File Include="Views/Home/RecentMatches.cshtml">
+      <publishTime>09/15/2016 22:35:01</publishTime>
+    </File>
     <File Include="Views/Home/User.cshtml">
-      <publishTime>09/12/2016 15:53:43</publishTime>
+      <publishTime>09/15/2016 22:28:59</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>09/10/2016 12:04:23</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>09/12/2016 17:47:46</publishTime>
+      <publishTime>09/15/2016 22:37:07</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>09/10/2016 12:04:23</publishTime>

@@ -1,4 +1,5 @@
 ﻿@using Foosball.Controllers
+@using Foosball.Utilities
 @model UserProfile
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -94,7 +95,7 @@
                 bool matchWon = (isTeam1Player && hasTeam1Won) || (isTeam2Player && hasTeam2Won);
 
                 <tr>
-                    <td>@match.Date.ToString("yy-MMM-dd ddd")</td>
+                    <td>@match.Date.ToSpecialString()</td>
                     <td>@match.Team1.Players[0] & @match.Team1.Players[1] vs @match.Team2.Players[0] & @match.Team2.Players[1]</td>
                     <td class="text-center">@match.Score</td>
                     <td class="text-center">
