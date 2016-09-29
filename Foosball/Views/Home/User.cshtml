@@ -14,7 +14,12 @@
         <div class="stat text-left">
             <span class="trend">
                 <span>Trend:</span>
-                @foreach (string trend in Model.UserRank.Trend)
+                @{
+                    Model.UserRank.Trend.Reverse();
+                    List<string> topTenTrend = Model.UserRank.Trend.Take(20).ToList();
+                    topTenTrend.Reverse();
+                }
+                @foreach (string trend in topTenTrend)
                 {
                     <span class="@trend">@trend </span>
                 }

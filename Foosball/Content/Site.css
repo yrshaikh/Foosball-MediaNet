@@ -47,8 +47,8 @@ table .frow { display: inline-block;}
 table .frow img { border: 1px solid #ccc;height: 50px;width: 50px;background:#ccc;}
 span.frow.title{ position: absolute;left: 80px;top: 10px;width: 100px;}
 table .frow.title .user { display: block;}
-.trend .L{ color: #E85B50;}
-.trend .W{ color: #32BE6E;}
+.L{ color: #E85B50;}
+.W{ color: #32BE6E;}
 .trend { color: #999;}
 table .medal {top: 7px;left: -11px;}
 table .cup {top: 13px;left: 180px;display: none;}
