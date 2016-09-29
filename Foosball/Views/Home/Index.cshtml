@@ -14,6 +14,7 @@
             <th class="text-center">Played</th>
             <th class="text-center">Won</th>
             <th class="text-center">Lost</th>
+            <th class="text-center">W/L</th>
             <th class="text-center">Diff</th>
         </tr>
     </thead>
@@ -81,12 +82,13 @@
                     </span>
                 </span>
             </td>
-
+            
             <td class="text-center">@user.Rating</td>
             <td class="text-center">@user.Played</td>
             <td class="text-center">@user.Won</td>
             <td class="text-center">@user.Lost</td>
-            <td class="text-center">@user.GoalDifference</td>
+            <td class="text-center @(user.Ratio >= 1 ? "W" : "L")">@decimal.Round(user.Ratio, 2, MidpointRounding.AwayFromZero)</td>
+            <td class="text-center @(user.GoalDifference >= 0 ? "W" : "L")">@user.GoalDifference</td>
         </tr>
     }
 </table>
