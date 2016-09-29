@@ -303,6 +303,11 @@ namespace Foosball.Controllers
             }
         }
 
+        public decimal Ratio
+        {
+            get { return (decimal) Won/Lost; }
+        }
+
         public int Rating { get; set; }
     }
 
