@@ -194,8 +194,8 @@ namespace Foosball.Controllers
                 bool hasTeam2Won = int.Parse(score[1]) > int.Parse(score[0]);
                 int team2GoalDifference = int.Parse(score[1]) - int.Parse(score[0]);
 
-                UpdateHashWithResults(hashtable, match.Team1.Players, hasTeam1Won, team1GoalDifference);
-                UpdateHashWithResults(hashtable, match.Team2.Players, hasTeam2Won, team2GoalDifference);
+                UpdateScoreTables(hashtable, match.Team1.Players, hasTeam1Won, team1GoalDifference, match.Date);
+                UpdateScoreTables(hashtable, match.Team2.Players, hasTeam2Won, team2GoalDifference, match.Date);
             }
 
             List<UserRank> userRanks = new List<UserRank>();
@@ -206,14 +206,14 @@ namespace Foosball.Controllers
                 userRanks.Add(temp);
             }
             userRanks = userRanks
-                        .OrderByDescending(x => x.Rating)
+                        .OrderByDescending(x => x.QualityScore)
                         .ThenByDescending(x => x.GoalDifference)
                         //.OrderBy(x => x.GoalDifference)
                         .ToList();
             return userRanks;
         }
 
-        private Hashtable UpdateHashWithResults(Hashtable hashtable, List<string> players, bool won, int goalDifference)
+        private Hashtable UpdateScoreTables(Hashtable hashtable, List<string> players, bool won, int goalDifference, DateTime matchDate)
         {
             foreach (string player in players)
             {
@@ -250,6 +250,37 @@ namespace Foosball.Controllers
                     if (goalDifference >= 9)
                         userRank.Rating = userRank.Rating - 1;
                 }
+
+                if (matchDate >= DateTime.Now.AddDays(-10))
+                {
+                    if (won) userRank.Scores[0].Sum += 10 * (1 + (0.25 * goalDifference));
+                    userRank.Scores[0].Count++;
+                }
+                else if (matchDate >= DateTime.Now.AddDays(-15))
+                {
+                    if (won) userRank.Scores[1].Sum += 10 * (1 + (0.25 * goalDifference));
+                    userRank.Scores[1].Count++;
+                }
+                else if (matchDate >= DateTime.Now.AddDays(-20))
+                {
+                    if (won) userRank.Scores[2].Sum += 10 * (1 + (0.25 * goalDifference));
+                    userRank.Scores[2].Count++;
+                }
+                else if (matchDate >= DateTime.Now.AddDays(-25))
+                {
+                    if (won) userRank.Scores[3].Sum += 10 * (1 + (0.25 * goalDifference));
+                    userRank.Scores[3].Count++;
+                }
+                else if (matchDate >= DateTime.Now.AddDays(-30))
+                {
+                    if (won) userRank.Scores[4].Sum += 10 * (1 + (0.25 * goalDifference));
+                    userRank.Scores[4].Count++;
+                }
+                else
+                {
+                    if (won) userRank.Scores[5].Sum += 10 * (1 + (0.25 * goalDifference));
+                    userRank.Scores[5].Count++;
+                }
                 userRank.GoalDifference = userRank.GoalDifference + goalDifference;
                 hashtable[player] = userRank;
             }
@@ -285,6 +316,18 @@ namespace Foosball.Controllers
         public List<string> Players { get; set; }
     }
 
+    public class ScoreTable
+    {
+        public ScoreTable()
+        {
+            Count = 0;
+            Sum = 0d;
+        }
+
+        public int Count { get; set; }
+        public double Sum { get; set; }
+    }
+
     public class UserRank
     {
         public string Username { get; set; }
@@ -293,13 +336,40 @@ namespace Foosball.Controllers
         public int Lost { get; set; }
         public List<string> Trend { get; set; }
         public int GoalDifference { get; set; }
-        
-        public decimal QualityScore
+
+        private ScoreTable[] _scores;
+        public ScoreTable[] Scores
         {
             get
             {
-                var scrore = ((decimal)Won / Played) + ((decimal)GoalDifference / 1000);
-                return scrore;
+                if (_scores == null)
+                {
+                    _scores = new ScoreTable[6];
+                    for (int i = 0; i < _scores.Length; i++)
+                    {
+                        _scores[i] = new ScoreTable();
+                    }
+                }
+
+                return _scores;
+            }
+            set { _scores = value; }
+        }
+
+        public double QualityScore
+        {
+            get
+            {
+                if (_scores == null)
+                    return 0d;
+
+                double score = (_scores[0].Sum / (_scores[0].Count == 0 ? 1 : _scores[0].Count))
+                             + 0.8 * (_scores[1].Sum / (_scores[1].Count == 0 ? 1 : _scores[1].Count))
+                             + 0.6 * (_scores[2].Sum / (_scores[2].Count == 0 ? 1 : _scores[2].Count))
+                             + 0.4 * (_scores[3].Sum / (_scores[3].Count == 0 ? 1 : _scores[3].Count))
+                             + 0.2 * (_scores[4].Sum / (_scores[4].Count == 0 ? 1 : _scores[4].Count))
+                             + 0.1 * (_scores[5].Sum / (_scores[5].Count == 0 ? 1 : _scores[5].Count));
+                return score;
             }
         }
 

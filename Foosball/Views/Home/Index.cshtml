@@ -10,6 +10,7 @@
         <tr>
             <th class="text-center">#</th>
             <th class="text-left">Username</th>
+            <th class="text-center">Rating</th>
             <th class="text-center">Points</th>
             <th class="text-center">Played</th>
             <th class="text-center">Won</th>
@@ -52,7 +53,15 @@
                         <a href="/user?q=@user.Username">
                             @if (user.Username == "ian.fo")
                             {
-                                <span>ser ian.fo</span>
+                                <span>Ser ian.fo</span>
+                            }
+                            else if (user.Username == "amit.mi")
+                            {
+                                <span>Mitra Bhai</span>
+                            }
+                            else if (user.Username == "ali.ri")
+                            {
+                                <span>Squire ali.ri</span>
                             }
                             else
                             {
@@ -82,7 +91,7 @@
                     </span>
                 </span>
             </td>
-            
+            <td class="text-center">@Math.Round(user.QualityScore, 2)</td>
             <td class="text-center">@user.Rating</td>
             <td class="text-center">@user.Played</td>
             <td class="text-center">@user.Won</td>
