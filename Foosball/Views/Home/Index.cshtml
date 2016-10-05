@@ -10,6 +10,7 @@
         <tr>
             <th class="text-center">#</th>
             <th class="text-left">Username</th>
+            <th class="text-center">Rating</th>
             <th class="text-center">Points</th>
             <th class="text-center">Played</th>
             <th class="text-center">Won</th>
@@ -82,7 +83,7 @@
                     </span>
                 </span>
             </td>
-            
+            <td class="text-center">@Math.Round(user.QualityScore, 2)</td>
             <td class="text-center">@user.Rating</td>
             <td class="text-center">@user.Played</td>
             <td class="text-center">@user.Won</td>
