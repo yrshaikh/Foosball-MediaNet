@@ -198,7 +198,7 @@
     <Content Include="Content\images\players\yasser.s.png" />
     <Content Include="Content\images\silver-medal.png" />
     <Content Include="Content\Site.css" />
-    <Content Include="Data.txt">
+    <Content Include="App_Data\Data.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="favicon.ico" />
@@ -240,9 +240,7 @@
     <Content Include="Views\Home\User.cshtml" />
     <Content Include="Views\Home\RecentMatches.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
