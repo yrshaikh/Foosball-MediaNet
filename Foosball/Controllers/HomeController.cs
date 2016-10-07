@@ -18,6 +18,51 @@ namespace Foosball.Controllers
             return View(userRanks);
         }
 
+        private string GetDataInJsonString()
+        {
+            string text;
+            string filePath = ConfigurationManager.AppSettings["filepath"];
+            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
+            {
+                text = streamReader.ReadToEnd();
+            }
+            return text;
+        }
+
+        private List<Match> GetAllMatches()
+        {
+            return TransformStringToObject(GetDataInJsonString());
+        }
+
+        private List<Match> GetAllMatches(string username)
+        {
+            return
+                GetAllMatches()
+                    .Where(x => x.Team1.Players.Contains(username) || x.Team2.Players.Contains(username))
+                    .ToList();
+        }
+
+        private List<Match> TransformStringToObject(string text)
+        {
+            List<Match> matches = JsonConvert.DeserializeObject<List<Match>>(text);
+            return matches;
+        }
+        
+        private List<Match> TransformNewStringToObject(string text)
+        {
+            List<Match> matches = new List<Match>();
+            foreach (string matchStr in text.split("\n")
+            {
+                Match match = new Match();
+                
+                int dateS = matchStr.indexOf("[");
+                int dateE = matchStr.indexOf("]");
+                int score = matchStr.indexOf("-");
+            }
+            return matches;
+        }
+
         public ActionResult User(string q)
         {
             int rank;
@@ -50,19 +95,6 @@ namespace Foosball.Controllers
             List<Match> allMatches = GetAllMatches();
             List<UserRank> userRanks = GetRankings(allMatches);
             return userRanks;
-        }
-
-        private List<Match> GetAllMatches()
-        {
-            return TransformStringToObject(GetDataInJsonString());
-        }
-
-        private List<Match> GetAllMatches(string username)
-        {
-            return
-                GetAllMatches()
-                    .Where(x => x.Team1.Players.Contains(username) || x.Team2.Players.Contains(username))
-                    .ToList();
         }
 
         private List<Match> GetAllWonMatches(string username, out Match bestWin, out int bestWinStreak)
@@ -150,24 +182,6 @@ namespace Foosball.Controllers
             UserRank user = userRanks.FirstOrDefault(x => x.Username.ToLower().Equals(username.ToLower()));
             rank = userRanks.IndexOf(user) + 1;
             return user;
-        }
-
-        private string GetDataInJsonString()
-        {
-            string text;
-            string filePath = ConfigurationManager.AppSettings["filepath"];
-            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
-            {
-                text = streamReader.ReadToEnd();
-            }
-            return text;
-        }
-
-        private List<Match> TransformStringToObject(string text)
-        {
-            List<Match> matches = JsonConvert.DeserializeObject<List<Match>>(text);
-            return matches;
         }
 
         private List<UserRank> GetRankings(List<Match> allMatches)
