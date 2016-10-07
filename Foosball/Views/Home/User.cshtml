@@ -93,7 +93,7 @@
                 bool isTeam1Player = match.Team1.Players.Any(x => x.Contains(Model.Name));
                 bool isTeam2Player = match.Team2.Players.Any(x => x.Contains(Model.Name));
 
-                List<string> score = match.Score.Split('-').ToList();
+                List<string> score = match.Score.Split(':').ToList();
                 bool hasTeam1Won = int.Parse(score[0]) > int.Parse(score[1]);
                 bool hasTeam2Won = int.Parse(score[0]) < int.Parse(score[1]);
 
