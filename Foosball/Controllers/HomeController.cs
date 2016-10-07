@@ -52,13 +52,15 @@ namespace Foosball.Controllers
         private List<Match> TransformNewStringToObject(string text)
         {
             List<Match> matches = new List<Match>();
-            foreach (string matchStr in text.split("\n")
+            foreach (string matchStr in text.Split('\n'))
             {
                 Match match = new Match();
                 
-                int dateS = matchStr.indexOf("[");
-                int dateE = matchStr.indexOf("]");
-                int score = matchStr.indexOf("-");
+                int dateS = matchStr.IndexOf('[');
+                int dateE = matchStr.IndexOf(']');
+                int score = matchStr.IndexOf('-');
+
+                string scoreStr = matchStr.Substring(score).Trim();
             }
             return matches;
         }
@@ -111,7 +113,7 @@ namespace Foosball.Controllers
                 if (match.Team2.Players.Contains(username))
                     factor = factor * -1;
 
-                List<string> score = match.Score.Split('-').ToList();
+                List<string> score = match.Score.Split(':').ToList();
                 int goalDifference = int.Parse(score[0]) - int.Parse(score[1]);
                 goalDifference = goalDifference * factor;
 
@@ -150,7 +152,7 @@ namespace Foosball.Controllers
                 if (match.Team1.Players.Contains(username))
                     factor = factor * -1;
 
-                List<string> score = match.Score.Split('-').ToList();
+                List<string> score = match.Score.Split(':').ToList();
                 int goalDifference = int.Parse(score[0]) - int.Parse(score[1]);
                 goalDifference = goalDifference * factor;
 
@@ -200,7 +202,7 @@ namespace Foosball.Controllers
                     hashtable[player] = userRank;
                 }
 
-                List<string> score = match.Score.Split('-').ToList();
+                List<string> score = match.Score.Split(':').ToList();
 
                 bool hasTeam1Won = int.Parse(score[0]) > int.Parse(score[1]);
                 int team1GoalDifference = int.Parse(score[0]) - int.Parse(score[1]);
