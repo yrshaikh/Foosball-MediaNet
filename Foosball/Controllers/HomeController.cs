@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Web.Mvc;
-using Newtonsoft.Json;
 
 namespace Foosball.Controllers
 {
@@ -16,6 +12,59 @@ namespace Foosball.Controllers
         {
             List<UserRank> userRanks = GetUserRanks();
             return View(userRanks);
+        }
+
+        private string[] GetDataInJsonString()
+        {
+            return System.IO.File.ReadAllLines(Server.MapPath(@"~/App_Data/Data.txt"));
+        }
+
+        private List<Match> GetAllMatches()
+        {
+            return TransformNewStringToObject(GetDataInJsonString());
+        }
+
+        private List<Match> GetAllMatches(string username)
+        {
+            return
+                GetAllMatches()
+                    .Where(x => x.Team1.Players.Contains(username) || x.Team2.Players.Contains(username))
+                    .ToList();
+        }
+        
+        private List<Match> TransformNewStringToObject(string[] lines)
+        {
+            List<Match> matches = new List<Match>();
+            foreach (string matchStr in lines)
+            {
+                if (string.IsNullOrWhiteSpace(matchStr))
+                    continue;
+
+                int dateS = matchStr.IndexOf('[');
+                int dateE = matchStr.IndexOf(']');
+                int score = matchStr.LastIndexOf('-');
+
+                string scoreStr = matchStr.Substring(score + 1).Trim();
+                string dateStr = matchStr.Substring(dateS + 1, dateE - dateS - 1).Trim();
+                string players = matchStr.Substring(dateE + 1, score - dateE - 1).Trim();
+                string[] teams = players.Split(new[] { " vs " }, StringSplitOptions.None);
+
+                Match match = new Match
+                {
+                    Team1 = new Team
+                    {
+                        Players = teams[0].Split(',').ToList().Select(x => x.Trim()).ToList()
+                    },
+                    Team2 = new Team
+                    {
+                        Players = teams[1].Split(',').ToList().Select(x => x.Trim()).ToList()
+                    },
+                    Date = DateTime.Parse(dateStr),
+                    Score = scoreStr
+                };
+                matches.Add(match);
+            }
+            return matches;
         }
 
         public ActionResult User(string q)
@@ -52,19 +101,6 @@ namespace Foosball.Controllers
             return userRanks;
         }
 
-        private List<Match> GetAllMatches()
-        {
-            return TransformStringToObject(GetDataInJsonString());
-        }
-
-        private List<Match> GetAllMatches(string username)
-        {
-            return
-                GetAllMatches()
-                    .Where(x => x.Team1.Players.Contains(username) || x.Team2.Players.Contains(username))
-                    .ToList();
-        }
-
         private List<Match> GetAllWonMatches(string username, out Match bestWin, out int bestWinStreak)
         {
             List<Match> matches = GetAllMatches(username);
@@ -79,7 +115,7 @@ namespace Foosball.Controllers
                 if (match.Team2.Players.Contains(username))
                     factor = factor * -1;
 
-                List<string> score = match.Score.Split('-').ToList();
+                List<string> score = match.Score.Split(':').ToList();
                 int goalDifference = int.Parse(score[0]) - int.Parse(score[1]);
                 goalDifference = goalDifference * factor;
 
@@ -118,7 +154,7 @@ namespace Foosball.Controllers
                 if (match.Team1.Players.Contains(username))
                     factor = factor * -1;
 
-                List<string> score = match.Score.Split('-').ToList();
+                List<string> score = match.Score.Split(':').ToList();
                 int goalDifference = int.Parse(score[0]) - int.Parse(score[1]);
                 goalDifference = goalDifference * factor;
 
@@ -152,24 +188,6 @@ namespace Foosball.Controllers
             return user;
         }
 
-        private string GetDataInJsonString()
-        {
-            string text;
-            string filePath = ConfigurationManager.AppSettings["filepath"];
-            var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read);
-            using (var streamReader = new StreamReader(fileStream, Encoding.UTF8))
-            {
-                text = streamReader.ReadToEnd();
-            }
-            return text;
-        }
-
-        private List<Match> TransformStringToObject(string text)
-        {
-            List<Match> matches = JsonConvert.DeserializeObject<List<Match>>(text);
-            return matches;
-        }
-
         private List<UserRank> GetRankings(List<Match> allMatches)
         {
             Hashtable hashtable = new Hashtable();
@@ -186,7 +204,7 @@ namespace Foosball.Controllers
                     hashtable[player] = userRank;
                 }
 
-                List<string> score = match.Score.Split('-').ToList();
+                List<string> score = match.Score.Split(':').ToList();
 
                 bool hasTeam1Won = int.Parse(score[0]) > int.Parse(score[1]);
                 int team1GoalDifference = int.Parse(score[0]) - int.Parse(score[1]);
