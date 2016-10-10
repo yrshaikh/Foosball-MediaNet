@@ -151,3 +151,6 @@
 [10-10-2016] Neel, Ian vs Yasser, Sahil - 10:7
 [10-10-2016] Neel, Ian vs Parth, Anant - 10:6
 [10-10-2016] Yasser, Sahil vs Neel, Amit - 10:9
+[10-10-2016] Ian, Parth vs Neel, Yasser - 10:9
+[10-10-2016] Ian, Parth vs Sahil, Amit - 10:7
+[10-10-2016] Ian, Parth vs Neel, Anant - 10:5
