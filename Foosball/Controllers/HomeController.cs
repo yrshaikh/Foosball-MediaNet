@@ -269,27 +269,27 @@ namespace Foosball.Controllers
                         userRank.Rating = userRank.Rating - 1;
                 }
 
-                if (matchDate >= DateTime.Now.AddDays(-10))
+                if (matchDate >= DateTime.Now.AddDays(-5))
                 {
                     if (won) userRank.Scores[0].Sum += 10 * (1 + (0.25 * goalDifference));
                     userRank.Scores[0].Count++;
                 }
-                else if (matchDate >= DateTime.Now.AddDays(-15))
+                else if (matchDate >= DateTime.Now.AddDays(-10))
                 {
                     if (won) userRank.Scores[1].Sum += 10 * (1 + (0.25 * goalDifference));
                     userRank.Scores[1].Count++;
                 }
-                else if (matchDate >= DateTime.Now.AddDays(-20))
+                else if (matchDate >= DateTime.Now.AddDays(-15))
                 {
                     if (won) userRank.Scores[2].Sum += 10 * (1 + (0.25 * goalDifference));
                     userRank.Scores[2].Count++;
                 }
-                else if (matchDate >= DateTime.Now.AddDays(-25))
+                else if (matchDate >= DateTime.Now.AddDays(-20))
                 {
                     if (won) userRank.Scores[3].Sum += 10 * (1 + (0.25 * goalDifference));
                     userRank.Scores[3].Count++;
                 }
-                else if (matchDate >= DateTime.Now.AddDays(-30))
+                else if (matchDate >= DateTime.Now.AddDays(-25))
                 {
                     if (won) userRank.Scores[4].Sum += 10 * (1 + (0.25 * goalDifference));
                     userRank.Scores[4].Count++;
@@ -348,6 +348,26 @@ namespace Foosball.Controllers
 
     public class UserRank
     {
+        public string DisplayUsername
+        {
+            get
+            {
+                if (Username == "Yasser")
+                {
+                    return "Ser Yasser";
+                }
+                if (Username == "Amit")
+                {
+                    return "Mitra Bhai";
+                }
+                if (Username == "Ali")
+                {
+                    return "Squire Ali";
+                }
+                return Username;
+            }
+        }
+
         public string Username { get; set; }
         public int Played { get; set; }
         public int Won { get; set; }

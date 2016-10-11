@@ -51,22 +51,7 @@
                 <span class="frow title">
                     <span class="user">
                         <a href="/user?q=@user.Username">
-                            @if (user.Username == "ian.fo")
-                            {
-                                <span>Ser ian.fo</span>
-                            }
-                            else if (user.Username == "amit.mi")
-                            {
-                                <span>Mitra Bhai</span>
-                            }
-                            else if (user.Username == "ali.ri")
-                            {
-                                <span>Squire ali.ri</span>
-                            }
-                            else
-                            {
-                                <span>@user.Username</span>
-                            }
+                            <span>@user.DisplayUsername</span>
                         </a>
                     </span>
                     <span class="trend">
