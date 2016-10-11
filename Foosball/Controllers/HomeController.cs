@@ -348,6 +348,26 @@ namespace Foosball.Controllers
 
     public class UserRank
     {
+        public string DisplayUsername
+        {
+            get
+            {
+                if (Username == "Yasser")
+                {
+                    return "Ser Yasser";
+                }
+                if (Username == "Amit")
+                {
+                    return "Mitra Bhai";
+                }
+                if (Username == "Ali")
+                {
+                    return "Squire Ali";
+                }
+                return Username;
+            }
+        }
+
         public string Username { get; set; }
         public int Played { get; set; }
         public int Won { get; set; }
